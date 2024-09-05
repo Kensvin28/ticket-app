@@ -21,7 +21,7 @@ const Dashboard = async () => {
   return (
     <div className="p-5">
       <div>
-        {uniqueCategories.map((category, i) => (
+        {uniqueCategories.sort((a, b) => tickets.filter(ticket => ticket.category === b).length - tickets.filter(ticket => ticket.category === a).length).map((category, i) => (
             <div key={i} className="mb-4">
               <h2>{category}</h2>
               <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-2 mt-2">
