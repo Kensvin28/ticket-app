@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const body = await req.json();
-        await Ticket.create(body)
+        await Ticket.create(body);
         return NextResponse.json({ message: "Ticket created successfully" }, { status: 201 });
     } catch (err) {
         return NextResponse.json({ error: err.message }, { status: 500 });
