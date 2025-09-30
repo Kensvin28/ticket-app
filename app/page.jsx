@@ -21,15 +21,15 @@ const Dashboard = async () => {
   return (
     <div className="p-5">
       <div>
-        {uniqueCategories.sort((a, b) => tickets.filter(ticket => ticket.category === b).length - tickets.filter(ticket => ticket.category === a).length).map((category, i) => (
+        {uniqueCategories.sort((a, b) => tickets?.filter(ticket => ticket.category === b).length - tickets?.filter(ticket => ticket.category === a).length).map((category, i) => (
             <div key={i} className="mb-4">
               <h2>{category}</h2>
               <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-2 mt-2">
-                {tickets.filter((ticket)=> ticket.category === category).map((filteredTicket, index) => (
+                {tickets?.filter((ticket)=> ticket.category === category).map((filteredTicket, index) => (
                   <TicketCard id={index} key={index} ticket={filteredTicket} />
                 ))}
               </div>
-              {tickets.filter((ticket)=> ticket.category === category).length === 0 && 
+              {tickets?.filter((ticket)=> ticket.category === category).length === 0 && 
                 <p className="mt-2">No tickets for this category yet</p>
               }
             </div>
