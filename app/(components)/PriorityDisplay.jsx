@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const PriorityDisplay = ({ priority }) => {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1 p-1">
       {[...Array(5)].map((_, index) => (
         <FontAwesomeIcon
           key={index}
