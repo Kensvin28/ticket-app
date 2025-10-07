@@ -24,12 +24,20 @@ export async function PUT(req, { params }) {
 }
 
 
-export async function GET(req, { params }) {
+export async function GET({ params }) {
     try {
         const { id } = params
         const foundTicket = await Ticket.findOne({_id : id});
         return NextResponse.json({ ticket: foundTicket }, { status: 200 });
     } catch (err) {
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        return NextResponse.json({ ticket: {
+            title: "",
+            description: "",
+            category: "Hardware Problem",
+            priority: 1,
+            progress: 0,
+            status: "Not started",
+        }}, {status: 200});
+        // NextResponse.json({ error: err.message }, { status: 500 });
     }
 }
