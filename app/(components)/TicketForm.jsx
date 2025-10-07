@@ -2,9 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Button from "./SubmitButton";
 
 const TicketForm = ({ ticket }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const EDIT_MODE = ticket?._id !== "new"
 
   let startingTicketData = {
@@ -32,7 +34,8 @@ const TicketForm = ({ ticket }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let res = {}
+    setIsLoading(true);
+    let res = {};
     if (EDIT_MODE) {
       res = await fetch(`/api/tickets/${ticket._id}`, {
         method: "PUT",
@@ -47,11 +50,13 @@ const TicketForm = ({ ticket }) => {
       });
     }
 
+    setIsLoading(false);
     if (!res.ok) {
       throw new Error(res.statusText);
     }
-    router.push("/")
-    router.refresh()
+
+    router.push("/");
+    router.refresh();
   };
 
   return (
@@ -183,9 +188,9 @@ const TicketForm = ({ ticket }) => {
           </select>
         </div>
         <div className={"mt-4"}>
-          <button type="submit" className="btn">
+          <Button isLoading={isLoading}>
             {EDIT_MODE && "Update Ticket" || "Create Ticket"}
-          </button>
+          </Button>
         </div>
       </form>
     </div>
