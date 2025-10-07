@@ -22,24 +22,29 @@ const formatTimestamp = (timestamp) => {
 
 const TicketCard = ({ ticket }) => {
   return (
-    <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3">
+    <div className="flex flex-col bg-card hover:bg-card-hover rounded-lg shadow-md hover:shadow-lg transition-all p-5">
       <Link href={`/ticket-page/${ticket._id}`} passHref>
-      <div className="flex mb-3">
-        <PriorityDisplay priority={ticket.priority} />
-        <div className="ml-auto">
-          <DeleteBlock id={ticket._id}/>
+        <div className="flex items-center justify-between mb-3">
+          <PriorityDisplay priority={ticket.priority} />
+          <DeleteBlock id={ticket._id} />
         </div>
-      </div>
-        <h4>{ticket.title}</h4>
-        <hr className="h-px border-0 bg-page mb-2"></hr>
-        <p className="whitespace-pre-wrap">{ticket.description}</p>
-        <div className="flex-grow"></div>
-        <div className="flex mt-2">
-          <div className="flex flex-col">
-            <p>{formatTimestamp(ticket.updatedAt)}</p>
+
+        <h4 className="text-lg font-semibold mb-2 line-clamp-2">{ticket.title}</h4>
+        <hr className="border-gray-200 mb-2"></hr>
+        <p className="text-sm whitespace-pre-wrap line-clamp-3 mb-3 flex-grow">{ticket.description}</p>
+
+        <div className="mt-auto space-y-3">
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between text-xs">
+              <span>Progress</span>
+              <span className="font-medium">{ticket.progress}%</span>
+            </div>
             <ProgressBar progress={ticket.progress} />
           </div>
-          <div className="ml-auto flex items-end">
+          <div className="flex items-center justify-between">
+            <span className="text-xs">
+              {formatTimestamp(ticket.updatedAt)}
+            </span>
             <StatusDisplay status={ticket.status} />
           </div>
         </div>
