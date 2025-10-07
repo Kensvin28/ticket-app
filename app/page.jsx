@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import TicketCard from "./(components)/TicketCard";
 
 const getTickets = async () => {
