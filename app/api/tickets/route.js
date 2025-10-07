@@ -18,7 +18,7 @@ export async function GET() {
     } catch (err) {
         return NextResponse.json([{
             title: "Sample Ticket 1",
-            description: "",
+            description: "Sample description",
             category: "Hardware Problem",
             priority: 1,
             progress: 0,
@@ -26,7 +26,7 @@ export async function GET() {
             updatedAt: "2025-10-01T10:00:00Z"
         }, {
             title: "Sample Ticket 2",
-            description: "",
+            description: "Sample description",
             category: "Hardware Problem",
             priority: 2,
             progress: 50,
@@ -34,7 +34,7 @@ export async function GET() {
             updatedAt: "2025-10-01T10:00:00Z"
         }, {
             title: "Sample Ticket 3",
-            description: "",
+            description: "Sample description",
             category: "Hardware Problem",
             priority: 3,
             progress: 100,
