@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const TicketForm = ({ticket}) => {
+const TicketForm = ({ ticket }) => {
   const router = useRouter();
-  const EDIT_MODE = ticket?._id === "new" ? false : true
+  const EDIT_MODE = ticket?._id !== "new"
 
   let startingTicketData = {
     title: "",
@@ -35,17 +35,17 @@ const TicketForm = ({ticket}) => {
     let res = {}
     if (EDIT_MODE) {
       res = await fetch(`/api/tickets/${ticket._id}`, {
-      method: "PUT",
-      "Content Type": "application/json",
-      body: JSON.stringify(formData),
-    });
-  } else {
+        method: "PUT",
+        "Content Type": "application/json",
+        body: JSON.stringify(formData),
+      });
+    } else {
       res = await fetch("/api/tickets", {
-      method: "POST",
-      "Content Type": "application/json",
-      body: JSON.stringify(formData),
-    });
-  }
+        method: "POST",
+        "Content Type": "application/json",
+        body: JSON.stringify(formData),
+      });
+    }
 
     if (!res.ok) {
       throw new Error(res.statusText);
@@ -55,124 +55,138 @@ const TicketForm = ({ticket}) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center py-4">
       <form
         className="flex flex-col gap-3 w-1/2"
         method="POST"
         onSubmit={handleSubmit}
       >
         <h3>{EDIT_MODE && "Edit Ticket" || "Create Ticket"}</h3>
-        <label>Title</label>
-        <input
-          id="title"
-          name="title"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.title}
-        />
-        <label>Description</label>
-        <textarea
-          id="description"
-          name="description"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.description}
-          rows="5"
-        />
-        <label>Category</label>
-        <select
-          id="category"
-          name="category"
-          onChange={handleChange}
-          required={true}
-          value={formData.category}
-        >
-          <option value="Hardware Problem">Hardware Problem</option>
-          <option value="Software Problem">Software Problem</option>
-          <option value="Project">Project</option>
-          <option value="Other">Other</option>
-        </select>
-        <label>Priority</label>
-        <div>
+        <div className={"flex flex-col gap-1"}>
+          <label>Title</label>
           <input
-            type="radio"
-            id="priority-1"
-            name="priority"
-            value="1"
+            id="title"
+            name="title"
+            type="text"
             onChange={handleChange}
             required={true}
-            checked={formData.priority == 1}
+            value={formData.title}
           />
-          <label htmlFor="priority-1">1</label>
-          <input
-            type="radio"
-            id="priority-2"
-            name="priority"
-            value="2"
-            onChange={handleChange}
-            required={true}
-            checked={formData.priority == 2}
-          />
-          <label htmlFor="priority-2">2</label>
-          <input
-            type="radio"
-            id="priority-3"
-            name="priority"
-            value="3"
-            onChange={handleChange}
-            required={true}
-            checked={formData.priority == 3}
-          />
-          <label htmlFor="priority-3">3</label>
-          <input
-            type="radio"
-            id="priority-4"
-            name="priority"
-            value="4"
-            onChange={handleChange}
-            required={true}
-            checked={formData.priority == 4}
-          />
-          <label htmlFor="priority-4">4</label>
-          <input
-            type="radio"
-            id="priority-5"
-            name="priority"
-            value="5"
-            onChange={handleChange}
-            required={true}
-            checked={formData.priority == 5}
-          />
-          <label htmlFor="priority-5">5</label>
         </div>
-        <label>Progress</label>
-        <input
-          type="range"
-          id="progress"
-          name="progress"
-          min="0"
-          max="100"
-          onChange={handleChange}
-          required={true}
-          value={formData.progress}
-        />
-        <label>Status</label>
-        <select
-          id="status"
-          name="status"
-          onChange={handleChange}
-          required={true}
-          value={formData.status}
-        >
-          <option value="Not started">Not started</option>
-          <option value="In progress">In progress</option>
-          <option value="Done">Done</option>
-        </select>
-        <button type="submit" className="btn">
-          {EDIT_MODE && "Update Ticket" || "Create Ticket"}
-        </button>
+        <div className={"flex flex-col gap-1"}>
+          <label>Description</label>
+          <textarea
+            id="description"
+            name="description"
+            type="text"
+            onChange={handleChange}
+            required={true}
+            value={formData.description}
+            rows="5"
+          />
+        </div>
+        <div className={"flex flex-col gap-1"}>
+          <label>Category</label>
+          <select
+            id="category"
+            name="category"
+            onChange={handleChange}
+            required={true}
+            value={formData.category}
+          >
+            <option value="Hardware Problem">Hardware Problem</option>
+            <option value="Software Problem">Software Problem</option>
+            <option value="Project">Project</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div className={"flex flex-col gap-1"}>
+          <label>Priority</label>
+          <div>
+            <input
+              type="radio"
+              id="priority-1"
+              name="priority"
+              value="1"
+              onChange={handleChange}
+              required={true}
+              checked={formData.priority == 1}
+            />
+            <label htmlFor="priority-1">1</label>
+            <input
+              type="radio"
+              id="priority-2"
+              name="priority"
+              value="2"
+              onChange={handleChange}
+              required={true}
+              checked={formData.priority == 2}
+            />
+            <label htmlFor="priority-2">2</label>
+            <input
+              type="radio"
+              id="priority-3"
+              name="priority"
+              value="3"
+              onChange={handleChange}
+              required={true}
+              checked={formData.priority == 3}
+            />
+            <label htmlFor="priority-3">3</label>
+            <input
+              type="radio"
+              id="priority-4"
+              name="priority"
+              value="4"
+              onChange={handleChange}
+              required={true}
+              checked={formData.priority == 4}
+            />
+            <label htmlFor="priority-4">4</label>
+            <input
+              type="radio"
+              id="priority-5"
+              name="priority"
+              value="5"
+              onChange={handleChange}
+              required={true}
+              checked={formData.priority == 5}
+            />
+            <label htmlFor="priority-5">5</label>
+          </div>
+        </div>
+        <div className={"flex flex-col gap-1"}>
+          <label>Progress</label>
+          <input
+            type="range"
+            id="progress"
+            name="progress"
+            min="0"
+            max="100"
+            onChange={handleChange}
+            required={true}
+            value={formData.progress}
+          />
+        </div>
+        <div className={"flex flex-col gap-1"}>
+          <label>Status</label>
+          <select
+            id="status"
+            name="status"
+            onChange={handleChange}
+            required={true}
+            value={formData.status}
+          >
+            <option value="Not started">Not started</option>
+            <option value="In progress">In progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+        <div className={"mt-4"}>
+          <button type="submit" className="btn">
+            {EDIT_MODE && "Update Ticket" || "Create Ticket"}
+          </button>
+        </div>
       </form>
     </div>
   );

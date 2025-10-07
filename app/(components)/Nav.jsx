@@ -1,25 +1,20 @@
 import { faHome, faTicket } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Link from "next/link"
+import HeaderButton from "./HeaderButton"
 
 const Nav = () => {
-  return (
-    <nav className="flex justify-between bg-nav p-4">
-        <div className="flex items-center space-x-4">
-            <Link href={"/"}>
-                <FontAwesomeIcon icon={faHome} className="icon" />
-            </Link>
-            <Link href={"/ticket-page/new"}>
-                <FontAwesomeIcon icon={faTicket} className="icon" />
-            </Link>
-        </div>
-        <div>
-            <p className="text-default-text">
-                user@gmail.com
-            </p>
-        </div>
-    </nav>
-  )
+    return (
+        <nav className="flex items-center justify-between bg-nav p-2">
+            <div className="flex items-center justify-center space-x-2 p-2">
+                <HeaderButton href="/" icon={faHome} />
+                <HeaderButton href="/ticket-page/new" icon={faTicket} />
+            </div>
+            <div className="flex items-center justify-center p-2 px-4">
+                <p className="text-default-text">
+                    user@gmail.com
+                </p>
+            </div>
+        </nav>
+    )
 }
 
 export default Nav
